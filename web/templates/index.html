@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  	<title>Fantasy Premier League 2024-25</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+	<link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+		
+		<div class="wrapper d-flex align-items-stretch">
+			<nav id="sidebar">
+				<div class="custom-menu">
+					<button type="button" id="sidebarCollapse" class="btn btn-primary">
+	          <i class="fa fa-bars"></i>
+	          <span class="sr-only">Toggle Menu</span>
+	        </button>
+        </div>
+				<div class="p-4">
+		  		<h1><a href="index.html" class="logo">FPL-2024-25 <span>FPL Mini League</span></a></h1>
+	        <ul class="list-unstyled components mb-5">
+	          <li class="active">
+	            <a href="index.html" ><span class="fa fa-home mr-3"></span> Home</a>
+	          </li>
+	          <li>
+	              <a href="table.html"><span class="fa-solid fa-table mr-3"></span> League Table</a>
+	          </li>
+	          <li>
+              <a href="gw.html"><span class="fa-solid fa-ranking-star mr-3"></span> Gameweek stats</a>
+	          </li>
+	          <li>
+              <a href="season.html"><span class="fa-solid fa-chart-simple mr-3"></span> Season stats</a>
+	          </li>
+	          <li>
+              <a href="value.html"><span class="fa-solid fa-money-bill-trend-up mr-3"></span> Team Value</a>
+	          </li>
+	          <li>
+	        </ul>
+	      </div>
+    	</nav>
+
+        <!-- Page Content  -->
+      <div id="content" class="p-4 p-md-5 pt-5">
+        <h2 class="mb-4">Welcome to our mini-league statistics site</h2>
+        <p>On this site, you'll find
+			<ul>
+				<li>League stats table</li>
+				<li>Gameweek stats - Captains,Points on the bench, team XGI, next GW expected points, Captain vs team points share  </li>
+				<li>Season stats - Total points,Team points vs bench points</li>
+				<li>Team value - team+bank</li>
+			</ul>
+		<h3> League race (interactive)</h3>
+		{{ fig }}
+        <p>Last updated : 01-10-2024 </p>
+      </div>
+		</div>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>

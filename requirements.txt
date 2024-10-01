@@ -1,0 +1,8 @@
+requests
+prettytable
+IPython
+pandas
+plotly
+nbformat
+kaleido
+jinja2
