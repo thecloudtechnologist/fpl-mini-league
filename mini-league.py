@@ -12,7 +12,7 @@ from functions import *
 # prettytable headers 
 ##############################
 headers = ['Team_Name','GW_Points','Season_Points','current_rank','last_rank','GW_bench_points','season_bench_points','GW_transfers','GW_transfers_cost',
-           'Season_transfers','Season_transfers_cost','Team_Value','Bank','Total_Value','GW_vice-Captain','GW_Captain','GW_Captain_points','team_XGI','nxp']
+           'Season_transfers','Season_transfers_cost','Team_Value','Bank','Total_Value','GW_Captain','GW_Captain_points','team_XGI','nxp']
 table = PrettyTable(headers)
 
 ##############################
@@ -148,8 +148,6 @@ for each in json_minileague['standings']['results']:
         player_idnew = str(player_id)
 
         if captain == True:
-            data.append(pl_name)
-        if vicecapt == True:
             data.append(pl_name)
             
     

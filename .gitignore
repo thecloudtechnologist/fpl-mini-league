@@ -2,3 +2,5 @@ web/images/*.png
 config.py
 mini-league.csv
 *.ipynb
+index.html
+table.html
