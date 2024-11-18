@@ -1,5 +1,4 @@
 import plotly.express as px
-import plotly.graph_objects as go
 
 def plot_total_points(df):
     fig = px.bar(
@@ -8,12 +7,8 @@ def plot_total_points(df):
     fig.update_xaxes(title_text="Team name")
     fig.update_yaxes(title_text="Total season points")
     fig.update_layout(xaxis={'categoryorder':'total descending'})
-    fig.show()
-    fig.update_layout(
-    autosize=False,
-    width=1200,
-    height=600,)
-    fig.write_image("web/images/season_points.png")
+    fig.update_layout(autosize=False,width=1200,height=600,)
+    return fig
 
 def plot_total_bench_points(df):
     fig = px.bar(
@@ -22,12 +17,8 @@ def plot_total_bench_points(df):
     fig.update_xaxes(title_text="Team name")
     fig.update_yaxes(title_text="Season points on bench")
     fig.update_layout(xaxis={'categoryorder':'total descending'})
-    fig.show()
-    fig.update_layout(
-    autosize=False,
-    width=1200,
-    height=600,)
-    fig.write_image("web/images/season_bench_points.png")
+    fig.update_layout(autosize=False,width=1200,height=600,)
+    return fig
 
 def plot_gw_bench_points(df):
     fig = px.bar(
@@ -36,13 +27,8 @@ def plot_gw_bench_points(df):
     fig.update_xaxes(title_text="Team name")
     fig.update_yaxes(title_text="Gameweek points on bench")
     fig.update_layout(xaxis={'categoryorder':'total descending'})
-    fig.show()
-    fig.update_layout(
-    autosize=False,
-    width=1200,
-    height=600,)
-    
-    fig.write_image("web/images/gw_bench_points.png")
+    fig.update_layout(autosize=False,width=1200,height=600,)
+    return fig
 
 def plot_total_vs_bench_points(df):
     # Create a new column that is the sum of total_points and bench_points
@@ -61,12 +47,8 @@ def plot_total_vs_bench_points(df):
     fig.update_xaxes(title_text="Team Name")
     fig.update_yaxes(title_text="Points")
     fig.update_layout(xaxis={'categoryorder':'total descending'})
-    fig.show()
-    fig.update_layout(
-    autosize=False,
-    width=1200,
-    height=600,)
-    fig.write_image("web/images/season_team_bench_points.png")
+    fig.update_layout(autosize=False,width=1200,height=600,)
+    return fig
 
 def plot_team_vs_bench_value(df):
     # Create a new column that is the sum of total_points and bench_points
@@ -85,12 +67,8 @@ def plot_team_vs_bench_value(df):
     fig.update_xaxes(title_text="Team Name")
     fig.update_yaxes(title_text="team_and_bench_value")
     fig.update_layout(xaxis={'categoryorder':'total descending'})
-    fig.show()
-    fig.update_layout(
-    autosize=False,
-    width=1200,
-    height=600,)
-    fig.write_image("web/images/season_team_bank_value.png")
+    fig.update_layout(autosize=False,width=1200,height=600,)
+    return fig
 
 def plot_gw_team_xgi(df):
     fig = px.bar(
@@ -99,12 +77,8 @@ def plot_gw_team_xgi(df):
     fig.update_xaxes(title_text="Team name")
     fig.update_yaxes(title_text="expected goal involvements")
     fig.update_layout(xaxis={'categoryorder':'total descending'})
-    fig.show()
-    fig.update_layout(
-    autosize=False,
-    width=1200,
-    height=600,)
-    fig.write_image("web/images/gw_xgi.png")
+    fig.update_layout(autosize=False,width=1200,height=600,)
+    return fig
 
 def plot_gw_team_vs_captain(df):
     fig = px.bar(
@@ -117,12 +91,8 @@ def plot_gw_team_vs_captain(df):
     fig.update_xaxes(title_text="Team Name")
     fig.update_yaxes(title_text="team_and_captain_points")
     fig.update_layout(xaxis={'categoryorder':'total descending'})
-    fig.show()
-    fig.update_layout(
-    autosize=False,
-    width=1200,
-    height=600,)
-    fig.write_image("web/images/gw_team_vs_captain.png")
+    fig.update_layout(autosize=False,width=1200,height=600,)
+    return fig
 
 def plot_gw_nGW_xp(df):
     fig = px.bar(
@@ -137,18 +107,12 @@ def plot_gw_nGW_xp(df):
     fig.update_xaxes(title_text="Team Name")
     fig.update_yaxes(title_text="Next GW expected points")
     fig.update_layout(xaxis={'categoryorder':'total descending'})
-    fig.update_layout(
-        autosize=False,
-        width=1200,
-        height=600,)
-    fig.show()
-    fig.write_image("web/images/gw_nGW_xp.png")
+    fig.update_layout(autosize=False,width=1200,height=600,)
+    return fig
 
 def plot_gw_captain(df):
     fig = px.pie(df, values='count', names='GW_Captain', title='Gameweek captain choice',labels='GW_Captain')
     fig.update_traces(textposition='inside', textinfo='percent+value')
-    fig.update_layout(
-        autosize=True)
-    fig.show()
-    fig.write_image("web/images/gw_captain.png")
+    fig.update_layout(autosize=False,width=1200,height=600,)
+    return fig
 

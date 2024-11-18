@@ -1,4 +1,5 @@
 # Imports 
+import streamlit as st
 import requests
 from prettytable import PrettyTable
 from IPython.display import display
