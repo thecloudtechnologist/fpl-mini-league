@@ -17,9 +17,11 @@ with st.sidebar:
     st.title(""":soccer: *Mini-League Analyser*""")
     st.caption("Your mini-league insights as graphs")
     st.caption("--------------------")
-    st.markdown("Checkout my other FPL tools")
+    st.markdown(""" *Checkout my other FPL tools* """)
     st.link_button("FPL Infographics", "https://fpl-infographics.streamlit.app", icon=":material/search_insights:")
-    st.link_button("Personalised watchlist", "https://fplmate.streamlit.app", icon=":material/visibility:")
+    st.caption("FPL data, stats as graphs and Charts")
+    st.link_button("Personalised watchlist", "https://fplmate.streamlit.app", icon=":material/eye_tracking:")
+    st.caption("Get your team performance, mini-league performance and Watch list picks based on expected goal involvements, points per game, Form, next gameweek expected points and Infuence+Creativity+Threat rank ")
     
 ##############################
 # prettytable headers 
