@@ -13,8 +13,12 @@ gwplayed = events_df.loc[events_df['is_current'] == True]['id'].iloc[-1]
 keep_cols = ["id","web_name","event_points","element_type"]
 players_df = players_df[keep_cols]
 players_df['element_type'] = players_df['element_type'].replace([1,2,3,4],['GKP','DEF','MID','FWD'])
-
-league_id = st.session_state.league_id
+#
+if 'league_id' not in st.session_state:
+    st.header("Please complete mini-league analysis and come back here")
+    st.stop()
+if 'league_id' in st.session_state:
+    league_id = st.session_state.league_id
 ##
 url1 = "https://fantasy.premierleague.com/api/leagues-classic/%s/standings/" % (league_id)
 json_minileague = requests.get(url1).json()
