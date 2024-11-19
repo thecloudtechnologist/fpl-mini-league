@@ -39,9 +39,11 @@ def leage_analysys(league_id):
     url1 = "https://fantasy.premierleague.com/api/leagues-classic/%s/standings/" % (league_id)
     json_minileague = requests.get(url1).json()
     results = json_minileague['standings']['results']
+    league_size = len(results)
     df_results = pd.DataFrame(results)
 
     appended_history = []
+    league_picks = []
     for i in df_results['entry']:
         team_name = df_results.loc[df_results['entry'] == i]['entry_name'].iloc[-1]
         team_id = i
@@ -92,6 +94,9 @@ def leage_analysys(league_id):
 # Cap and vCap
         url4 = "https://fantasy.premierleague.com/api/entry/%s/event/%s/picks/" % (team_id, gwplayed+1)
         json_pick = requests.get(url4).json()
+        json_pick_df = pd.DataFrame(json_pick['picks'])
+        list = json_pick_df['element'].to_list()
+        league_picks.extend(list)
         for each1 in json_pick['picks']:
             player_id = each1['element']
             captain = each1['is_captain']
@@ -137,7 +142,12 @@ def leage_analysys(league_id):
         df_history = pd.json_normalize(json_history['current'])
         df_history["entry"] = team_name
         appended_history.append(df_history)
+##
     appended_history = pd.concat(appended_history,ignore_index=True)
+    league_picks_df = pd.DataFrame(league_picks,columns=["id"])
+    league_picks_df['name'] = league_picks_df['id'].map(df_elements.set_index('id')['web_name'])
+    ownership = league_picks_df.value_counts()/league_size*100
+##
 ##############################
 # Create DF
 ##############################
@@ -155,9 +165,9 @@ def leage_analysys(league_id):
     fig.update_layout(autosize=False,width=1600,height=1200,)
 # total points
     fig_tp = plot_total_points(df)
-    
-# Points left on bench (season)
-    fig_s_bench = plot_total_bench_points(df)
+
+# GW points 
+    fig_gw_points = plot_GW_points(df)
     
 # Points left on bench (GW)
     fig_w_bench = plot_gw_bench_points(df)
@@ -186,38 +196,53 @@ def leage_analysys(league_id):
 ##############################
 # streamlit tabs
 ##############################
-    st.header("League Race")
-    st.plotly_chart(fig,theme=None, use_container_width=False)
+    tabw,tabx,taby,tabz = st.tabs(["League Race","Total points","Player Ownership %","Team Value (£)"])
+    with tabw:
+        st.plotly_chart(fig,theme=None, use_container_width=False)
+    with tabx:
+        st.plotly_chart(fig_tp,theme=None, use_container_width=False)
+    with taby:
+        st.dataframe(ownership, hide_index=False, use_container_width=False,width=1000,
+                 column_config={
+                     "count": st.column_config.ProgressColumn(
+                        "Effective Ownership",format="%.2f",min_value=0,max_value=100,width="large"),
+                }
+            )
+    with tabz:
+        st.plotly_chart(fig_tv,theme=None, use_container_width=False)
+    ##########################
     st.header("Gameweek stats")
-    tab1,tab2,tab3,tab4,tab5,tab6 = st.tabs(["Captain choice","Team vs Captain points","Points on bench","Team+bench points","Team xGI","Next GW expected points"])
+    tab1,tab2,tab3,tab4,tab5,tab6 = st.tabs(["GW Points","Captain choice","Team vs Captain points","Points on bench","Team xGI","Next GW expected points"])
     with tab1:
-        st.plotly_chart(fig_cap,theme=None, use_container_width=False)
+        st.plotly_chart(fig_gw_points,theme=None, use_container_width=False)
     with tab2:
-        st.plotly_chart(fig_team,theme=None, use_container_width=False)
+        st.plotly_chart(fig_cap,theme=None, use_container_width=False)
     with tab3:
-        st.plotly_chart(fig_w_bench,theme=None, use_container_width=False)
+        st.plotly_chart(fig_team,theme=None, use_container_width=False)
     with tab4:
-        st.plotly_chart(fig_points,theme=None, use_container_width=False)
+        st.plotly_chart(fig_w_bench,theme=None, use_container_width=False)
     with tab5:
         st.plotly_chart(fig_xgi,theme=None, use_container_width=False)
     with tab6:
         st.plotly_chart(fig_ep,theme=None, use_container_width=False)
-    st.header("Season stats")
-    taba,tabb,tabc = st.tabs(["Total Points","points on bench(season)","Team Value"])
-    with taba:
-        st.plotly_chart(fig_tp,theme=None, use_container_width=False)
-    with tabb:
-        st.plotly_chart(fig_s_bench,theme=None, use_container_width=False)
-    with tabc:
-        st.plotly_chart(fig_tv,theme=None, use_container_width=False)
+    ##########################
+    # st.header("Season stats")
+    # tabb = st.tabs(["points on bench(season)"])
+    # with tabb:
+    #     st.plotly_chart(fig_s_bench,theme=None, use_container_width=False)
 ##############################
 # league ID
 ##############################
+if 'league_id' not in st.session_state:
+    st.session_state['league_id'] = ''
+ 
 league_id = st.text_input("Enter mini-league ID")
+if league_id:
+    st.session_state['league_id'] = league_id
+# st.write(f"You entered: {st.session_state['league_id']}")
 ##############################
 if st.button('Analyse..'):
     with st.spinner("Analysis ongoing"):
         leage_analysys(league_id)
         st.balloons()
-        st.text("success")
 ##############################

@@ -10,6 +10,16 @@ def plot_total_points(df):
     fig.update_layout(autosize=False,width=1200,height=600,)
     return fig
 
+def plot_GW_points(df):
+    fig = px.bar(
+        df, x="Team_Name", y="GW_Points",color="GW_Points",color_continuous_scale='Rainbow', title="GW Points",text_auto=True
+    )
+    fig.update_xaxes(title_text="Team name")
+    fig.update_yaxes(title_text="GW points")
+    fig.update_layout(xaxis={'categoryorder':'total descending'})
+    fig.update_layout(autosize=False,width=1200,height=600,)
+    return fig
+
 def plot_total_bench_points(df):
     fig = px.bar(
         df, x="Team_Name", y="season_bench_points",color="season_bench_points",color_continuous_scale='Rainbow', title="Season points on benc",text_auto=True
